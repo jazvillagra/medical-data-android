@@ -3,18 +3,41 @@
 buildscript {
     repositories {
         jcenter()
+		maven {
+			url "https://plugins.gradle.org/m2/"
+		}
+		mavenCentral()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.3.2'
-
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
+		//Agregar CLASSPATH de plugins sonarqube y dependency-check
+		classpath 'org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.0.1'
+		classpath 'org.owasp:dependency-check-gradle:1.4.5'
     }
+}
+
+//Agregar plugin del sonar con la versión correspondiente
+plugins {
+	id "org.sonarqube" version "2.5"
+}
+
+//Agregar propiedades del sonarqube
+sonarqube {
+	properties {
+		//property "sonar.host.url", "http://sonar.familiar.com.py/sonar/"
+		property "sonar.host.url", "http://localhost:9000"
+		//property "sonar.login", "admin"
+		//property "sonar.password", "admin"
+		//Este es el path del que el sonar tomará los reportes del DC
+		property "sonar.dependencyCheck.reportPath", "${projectDir}/app/build/reports/dependency-check-report.xml"
+	}
 }
 
 allprojects {
     repositories {
         jcenter()
+		// Agregar repositorio Maven Central
+		mavenCentral()
     }
 }
 
