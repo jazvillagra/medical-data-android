@@ -25,7 +25,7 @@ sonarqube {
 	properties {
 		property "sonar.host.url", "http://localhost:9000"
 		//Este es el path del que el sonar tomará los reportes del DC
-		property "sonar.dependencyCheck.reportPath", "${projectDir}/build/app/reports/dependency-check-report.xml"
+		property "sonar.dependencyCheck.reportPath", "${projectDir}/app/build/reports/dependency-check-report.xml"
 	}
 }
 
