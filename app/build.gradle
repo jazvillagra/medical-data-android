@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'org.sonarqube'
 
 android {
     compileSdkVersion 25
@@ -26,4 +27,21 @@ dependencies {
     compile 'org.mongodb:mongodb-driver:3.2.2'
     compile 'org.mongodb:bson:3.2.2'
 }
+
+sonarqube {
+    properties {
+        property "sonar.projectKey", "medical_data_android_dependencyCheck"
+        property "sonar.projectName", "medical_data_android_dependencyCheck"
+        property "sonar.projectVersion", android.defaultConfig.versionName
+        property "sonar.sources", "src/main"
+	property "sonar.dependencyCheck.reportPath", "${projectDir}/build/reports/dependency-check-report.xml"
+    }
+}
+
 apply plugin: 'org.owasp.dependencycheck'
+
+dependencyCheck {
+	autoUpdate=false
+	cveValidForHours=4
+	format='ALL'
+}
